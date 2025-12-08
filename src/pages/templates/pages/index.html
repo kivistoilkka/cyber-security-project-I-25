@@ -5,6 +5,7 @@
     <title>Note app</title>
   </head>
   <body>
+    <h1>Note app</h1>
     {% if note_list %}
     <ul>
         {% for note in note_list %}
@@ -12,8 +13,15 @@
         {% endfor %}
     </ul>
     {% else %}
-        <p>Note notes are available.</p>
+        <p>No notes are available.</p>
     {% endif %}
+
+    <h2>Add note</h2>
+    <form action="{% url 'notes:add' %}" method="post">
+      {% csrf_token %}
+      <input type="text" name="note_text">
+      <input type="submit" value="Add">
+    </form>
   </body>
 </html>
 

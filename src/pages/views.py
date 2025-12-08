@@ -1,11 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.utils import timezone
 
 from .models import Note
 
 
-def index(request):
+def index(request, ):
     note_list = Note.objects.order_by("-save_date")
-    context = {"note_list": note_list}
+    context = { "note_list": note_list }
     return render(request, "pages/index.html", context)
 
 def note(request, note_id):
@@ -15,3 +16,15 @@ def note(request, note_id):
         "pages/note.html",
         {"note": note}
     )
+
+def add(request):
+    try:
+        new_note = request.POST["note_text"]
+        if new_note == "":
+            return redirect("/")
+    except(KeyError):
+        return redirect("/")
+    else:
+        added_note = Note(note_text=new_note, save_date=timezone.now())
+        added_note.save()
+        return redirect("/")
