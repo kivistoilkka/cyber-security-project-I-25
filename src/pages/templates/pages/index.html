@@ -6,6 +6,12 @@
   </head>
   <body>
     <h1>Note app</h1>
+
+    <table>
+      <tr>
+		    <th style="text-align:left">Username: <td>{{user.username}}
+		</table>
+
     {% if note_list %}
     <ul>
         {% for note in note_list %}
@@ -21,6 +27,11 @@
       {% csrf_token %}
       <input type="text" name="note_text">
       <input type="submit" value="Add">
+    </form>
+
+    <form action='logout/' method="POST">
+			{% csrf_token %}
+      <input type="submit" value="Logout"/>
     </form>
   </body>
 </html>
