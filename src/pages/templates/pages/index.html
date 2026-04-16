@@ -15,7 +15,10 @@
     {% if note_list %}
     <ul>
         {% for note in note_list %}
-            <li><a href="{% url 'notes:note' note.id %}">{{ note.note_text }}</a></li>
+            <li>
+              <a href="{% url 'notes:note' note.id %}">{{ note.note_text }}</a>
+              <a href="{% url 'notes:delete' note.id %}">Delete</a>
+            </li>
         {% endfor %}
     </ul>
     {% else %}

@@ -14,7 +14,7 @@ class SignUpView(CreateView):
     template_name = "pages/signup.html"
 
 @login_required
-def index(request, ):
+def index(request):
     note_list = Note.objects.filter(owner=request.user).order_by("-save_date")
     context = { "note_list": note_list }
     return render(request, "pages/index.html", context)
@@ -38,3 +38,7 @@ def add(request):
         added_note = Note(owner=request.user, note_text=new_note, save_date=timezone.now())
         added_note.save()
         return redirect("/")
+
+def delete(request, note_id):
+    Note.objects.filter(pk=note_id).delete()
+    return redirect("/")
