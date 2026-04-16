@@ -6,14 +6,14 @@
   </head>
   <body>
     <h1>Note app</h1>
-    <h2>Login</h2>
+    <h2>Sign up</h2>
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
-      <button type="submit">Login</button>
+      <button type="submit">Sign up</button>
     </form>
     <p>
-      <a href="{% url 'notes:signup' %}">Sign up</a>
+      <a href="{% url 'notes:index' %}">Back</a>
     </p>
   </body>
 </html>

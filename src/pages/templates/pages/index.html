@@ -23,16 +23,22 @@
     {% endif %}
 
     <h2>Add note</h2>
-    <form action="{% url 'notes:add' %}" method="post">
-      {% csrf_token %}
-      <input type="text" name="note_text">
-      <input type="submit" value="Add">
-    </form>
+    <p>
+      <form action="{% url 'notes:add' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="note_text">
+        <input type="submit" value="Add">
+      </form>
+    </p>
 
-    <form action='logout/' method="POST">
-			{% csrf_token %}
-      <input type="submit" value="Logout"/>
-    </form>
+
+    <p>
+      <form action='logout/' method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Logout"/>
+      </form>
+    </p>
+
   </body>
 </html>
 
