@@ -1,6 +1,6 @@
 # Cyber Security Base 2025, Project I
 
-Very basic note application containing security flaws and steps to fix them.
+Very basic note application containing 5 security flaws from OWASP top ten list from 2021 and steps to fix them.
 
 ## Installation
 

