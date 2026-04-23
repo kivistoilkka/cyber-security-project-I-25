@@ -13,14 +13,22 @@
 		</table>
 
     {% if note_list %}
-    <ul>
+    <table>
         {% for note in note_list %}
-            <li>
-              <a href="{% url 'notes:note' note.id %}">{{ note.note_text }}</a>
-              <a href="{% url 'notes:delete' note.id %}">Delete</a>
-            </li>
+            <tr>
+              <th>
+                <a href="{% url 'notes:note' note.id %}">{{ note.note_text }}</a>
+              </th>
+              <th>
+                <form action='{% url 'notes:delete' note.id %}' method="DELETE">
+                  {% csrf_token %}
+                  <input type="submit" value="Delete"/>
+                </form>
+              </th>
+
+            </tr>
         {% endfor %}
-    </ul>
+          </table>
     {% else %}
         <p>No notes are available.</p>
     {% endif %}
