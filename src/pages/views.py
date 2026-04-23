@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.http import Http404
+from django.db import connection
 
 from .models import Note
 
@@ -42,7 +43,7 @@ def add(request):
     except(KeyError):
         return redirect("/")
     else:
-        added_note = Note(owner=request.user, note_text=new_note, save_date=timezone.now())
+        added_note = Note(owner=request.user, note_text=new_note, save_date=timezone.now(), update_time=timezone.now())
         added_note.save()
         return redirect("/")
 
@@ -58,3 +59,12 @@ def delete(request, note_id):
     # if request.user == note.owner:
     #     note.delete()
     # return redirect("/")
+
+# @login_required # Flaw1
+def update(request, note_id):
+    updated_note = request.POST["note_text"]
+    query = 'UPDATE pages_note SET note_text = "' + updated_note + '", update_time = datetime(\'now\') WHERE id = ' + str(note_id)
+    print(query)
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+    return redirect(f"/note/{note_id}")

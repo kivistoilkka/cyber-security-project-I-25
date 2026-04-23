@@ -1,2 +1,22 @@
-<h1>{{ note.note_text }}</h1>
-<i>Save date: {{ note.save_date }}</i>
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <title>Note app</title>
+  </head>
+  <body>
+    <h1>{{ note.note_text }}</h1>
+
+    <i>Created: {{ note.save_date }}</i><br>
+    <i>Updated: {{ note.update_time }}</i>
+
+    <h2>Update note</h2>
+    <p>
+      <form action="{% url 'notes:update' note.id %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="note_text">
+        <input type="submit" value="Update">
+      </form>
+    </p>
+  </body>
+</html>
