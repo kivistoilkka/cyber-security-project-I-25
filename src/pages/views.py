@@ -63,7 +63,15 @@ def delete(request, note_id):
 # @login_required # Flaw1
 def update(request, note_id):
     updated_note = request.POST["note_text"]
+
     query = 'UPDATE pages_note SET update_time = datetime(\'now\'), note_text = "' + updated_note + '" WHERE id = ' + str(note_id)
     with connection.cursor() as cursor:
         cursor.execute(query)
     return redirect(f"/note/{note_id}")
+
+    # note = get_object_or_404(Note, pk=note_id) # Flaw2
+    # if request.user != note.owner: # Flaw1
+    #     raise Http404("No Note matches the given query.")
+    # note.note_text = updated_note # Flaw2
+    # note.save()
+    # return redirect(f"/note/{note_id}")
