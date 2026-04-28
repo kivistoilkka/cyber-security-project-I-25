@@ -63,8 +63,7 @@ def delete(request, note_id):
 # @login_required # Flaw1
 def update(request, note_id):
     updated_note = request.POST["note_text"]
-    query = 'UPDATE pages_note SET note_text = "' + updated_note + '", update_time = datetime(\'now\') WHERE id = ' + str(note_id)
-    print(query)
+    query = 'UPDATE pages_note SET update_time = datetime(\'now\'), note_text = "' + updated_note + '" WHERE id = ' + str(note_id)
     with connection.cursor() as cursor:
         cursor.execute(query)
     return redirect(f"/note/{note_id}")
