@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+# import os # Flaw3
+# from dotenv import load_dotenv # Flaw3
+
+# load_dotenv() # Flaw3
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,11 +25,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-u394#dbn*m_87_h*cjr4-y1fie1c*_(*%ard!=04x%d&vr^x_p"
+# SECRET_KEY = os.getenv("SECRET_KEY") # Flaw3
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = False # Flaw3
 
 ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ["localhost", "127.0.0.1"] # Flaw3
 
 
 # Application definition
@@ -72,6 +79,8 @@ WSGI_APPLICATION = "config.wsgi.application"
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 SESSION_COOKIE_SAMESITE = None
+# SESSION_COOKIE_SECURE = True # Flaw3
+# CSRF_COOKIE_SECURE = True # Flaw3
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
