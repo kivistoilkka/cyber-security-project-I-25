@@ -19,6 +19,8 @@ $ source venv/bin/activate
 (venv) $ pip install -r requirements.txt
 ```
 
+Before the application is run for the first time, create tables to the database with command `python3 src/manage.py migrate`. Then create admin user with command `python3 manage.py createsuperuser` and answer prompts in terminal.
+
 Start up the application:
 
 ```bash
