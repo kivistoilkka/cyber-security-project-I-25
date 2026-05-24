@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 # import os # Flaw3
 # from dotenv import load_dotenv # Flaw3
+# from datetime import timedelta # Flaw4
 
 # load_dotenv() # Flaw3
 
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # "axes", # Flaw4
 ]
 
 MIDDLEWARE = [
@@ -55,6 +57,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # "axes.middleware.AxesMiddleware", # Flaw4
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -133,3 +136,16 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# https://docs.djangoproject.com/en/5.2/ref/settings/#authentication-backends
+
+# AUTHENTICATION_BACKENDS = [ # Flaw4
+#     "axes.backends.AxesStandaloneBackend",
+#     "django.contrib.auth.backends.ModelBackend",
+# ]
+
+# AXES_LOCKOUT_PARAMETERS = ["username"] # Flaw4
+# AXES_CLIENT_IP_CALLABLE = lambda x: None
+# AXES_FAILURE_LIMIT = 3
+# AXES_COOLOFF_TIME = timedelta(minutes=15)
