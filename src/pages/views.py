@@ -26,7 +26,7 @@ def note(request, note_id):
     note = get_object_or_404(Note, pk=note_id)
 
     # if request.user != note.owner: # Flaw1
-    #     raise Http404("No Note matches the given query.")
+    #     raise Http404("No Note matches the given query.") # Flaw1
 
     return render(
         request,
@@ -50,31 +50,32 @@ def add(request):
 # @login_required # Flaw1
 def delete(request, note_id):
     Note.objects.filter(pk=note_id).delete()
-    return redirect("/")
 
     # try: # Flaw1
-    #     note = Note.objects.get(pk=note_id)
-    # except Note.DoesNotExist:
-    #     return redirect("/")
-    # if request.user == note.owner:
-    #     note.delete()
-    # return redirect("/")
+    #     note = Note.objects.get(pk=note_id) # Flaw1
+    # except Note.DoesNotExist: # Flaw1
+    #     return redirect("/") # Flaw1
+    # if request.user == note.owner: # Flaw1
+    #     note.delete() # Flaw1
+
+    return redirect("/")
 
 # @login_required # Flaw1
 def update(request, note_id):
     updated_note = request.POST["note_text"]
 
+    # note = get_object_or_404(Note, pk=note_id) # Flaw1 # Flaw2
+    # if request.user != note.owner: # Flaw1
+    #     raise Http404("No Note matches the given query.") # Flaw1
+
     query = 'UPDATE pages_note SET update_time = datetime(\'now\'), note_text = "' + updated_note + '" WHERE id = ' + str(note_id)
     with connection.cursor() as cursor:
         cursor.execute(query)
-    return redirect(f"/note/{note_id}")
 
-    # note = get_object_or_404(Note, pk=note_id) # Flaw2
-    # if request.user != note.owner: # Flaw1
-    #     raise Http404("No Note matches the given query.")
     # note.note_text = updated_note # Flaw2
-    # note.save()
-    # return redirect(f"/note/{note_id}")
+    # note.save() # Flaw2
+
+    return redirect(f"/note/{note_id}")
 
 # @login_required # Flaw1
 def search(request):
@@ -84,11 +85,11 @@ def search(request):
     }
 
     # allowed_filters = {'note_text'} # Flaw5
-    # clean_filters = {k: v for k, v in request.GET.items() if k in allowed_filters}
-    # filters = {
-    #     "owner": request.user,
-    #     **clean_filters,
-    # }
+    # clean_filters = {k: v for k, v in request.GET.items() if k in allowed_filters} # Flaw5
+    # filters = { # Flaw5
+    #     "owner": request.user, # Flaw5
+    #     **clean_filters, # Flaw5
+    # } # Flaw5
 
     note_list = Note.objects.filter(**filters).order_by("-save_date")
     context = { "note_list": note_list }

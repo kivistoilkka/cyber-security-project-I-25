@@ -141,11 +141,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#authentication-backends
 
 # AUTHENTICATION_BACKENDS = [ # Flaw4
-#     "axes.backends.AxesStandaloneBackend",
-#     "django.contrib.auth.backends.ModelBackend",
-# ]
+#     "axes.backends.AxesStandaloneBackend", # Flaw4
+#     "django.contrib.auth.backends.ModelBackend", # Flaw4
+# ] # Flaw4
 
 # AXES_LOCKOUT_PARAMETERS = ["username"] # Flaw4
-# AXES_CLIENT_IP_CALLABLE = lambda x: None
-# AXES_FAILURE_LIMIT = 3
-# AXES_COOLOFF_TIME = timedelta(minutes=15)
+# AXES_CLIENT_IP_CALLABLE = lambda x: None # Flaw4
+# AXES_FAILURE_LIMIT = 3 # Flaw4
+# AXES_COOLOFF_TIME = timedelta(minutes=15) # Flaw4
