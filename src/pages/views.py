@@ -75,3 +75,21 @@ def update(request, note_id):
     # note.note_text = updated_note # Flaw2
     # note.save()
     # return redirect(f"/note/{note_id}")
+
+# @login_required # Flaw1
+def search(request):
+    filters = {
+        "owner": request.user,
+        **request.GET.dict(),
+    }
+
+    # allowed_filters = {'note_text'} # Flaw5
+    # clean_filters = {k: v for k, v in request.GET.items() if k in allowed_filters}
+    # filters = {
+    #     "owner": request.user,
+    #     **clean_filters,
+    # }
+
+    note_list = Note.objects.filter(**filters).order_by("-save_date")
+    context = { "note_list": note_list }
+    return render(request, "pages/search.html", context)

@@ -7,17 +7,7 @@
   <body>
     <h1>Note app</h1>
 
-    <table>
-      <tr>
-		    <th style="text-align:left">Username: <td>{{user.username}}</td></th>
-        <th>
-          <form action='logout/' method="POST">
-            {% csrf_token %}
-            <input type="submit" value="Logout"/>
-          </form>
-        </th>
-		</table>
-
+    <h2>Search results</h2>
     {% if note_list %}
     <table>
         {% for note in note_list %}
@@ -39,24 +29,9 @@
         <p>No notes are available.</p>
     {% endif %}
 
-    <h2>Add note</h2>
     <p>
-      <form action="{% url 'notes:add' %}" method="post">
-        {% csrf_token %}
-        <input type="text" name="note_text">
-        <input type="submit" value="Add">
-      </form>
+      <a href="{% url 'notes:index' %}"">Go back</a>
     </p>
-
-    <h2>Search note</h2>
-    <p>
-      <form action="{% url 'notes:search' %}" method="get">
-        <input type="text" name="note_text">
-        <input type="submit" value="Search">
-      </form>
-    </p>
-
-
   </body>
 </html>
 
